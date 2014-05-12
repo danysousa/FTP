@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:55:53 by dsousa            #+#    #+#             */
-/*   Updated: 2014/05/12 19:02:00 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/05/12 19:22:20 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,5 @@
 # define FTP_H
 
 # include "struct.h"
-# define FTP "OK"
 
 #endif

@@ -6,7 +6,7 @@
 #    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/05/12 19:06:15 by dsousa           ###   ########.fr        #
+#    Updated: 2014/05/12 19:21:56 by dsousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,7 @@ fclean:			clean
 	@rm -f $(CLIENT)
 	@echo "\033[31m"$(CLIENT) : deleted"\033[0m"
 	@make fclean -C libft
+
 re:				fclean all
 
 .PHONY:			all clean fclean re
