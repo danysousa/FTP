@@ -18,9 +18,9 @@
 #include <arpa/inet.h>
 #include <libft.h>
 
-void		usage(char *str)
+void		usage(void)
 {
-	ft_printf("Usage: %s <addr> <port>\n", str);
+	ft_putendl("Usage: ./client <port>");
 	exit(-1);
 }
 
@@ -49,7 +49,7 @@ int			main(int argc, char *argv[])
 	char					buff[1024];
 
 	if (argc != 3)
-		usage(argv[0]);
+		usage();
 	port = ft_atoi(argv[2]);
 	sock = create_client(argv[1], port);
 	while ((r = read(0, buff, 1023)) > 0)

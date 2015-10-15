@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit_space.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/19 12:21:39 by dsousa            #+#    #+#             */
-/*   Updated: 2014/05/01 13:58:08 by dsousa           ###   ########.fr       */
+/*   Created: 2014/03/01 13:46:34 by rbenjami          #+#    #+#             */
+/*   Updated: 2014/03/26 18:32:27 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ char			**ft_strsplit_space(char *str)
 			tab[size++] = ft_strsub(str, start, i - start);
 		}
 	}
-	tab[size] = '\0';
+	tab[size] = NULL;
 	return (tab);
 }

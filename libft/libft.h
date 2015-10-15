@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/19 12:21:39 by dsousa            #+#    #+#             */
-/*   Updated: 2014/05/12 19:00:02 by dsousa           ###   ########.fr       */
+/*   Created: 2013/11/19 12:21:39 by rbenjami          #+#    #+#             */
+/*   Updated: 2014/03/26 17:52:20 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,7 @@
 # include <string.h>
 # include "define_type.h"
 # include "get_next_line.h"
-# include <stdlib.h>
-# include <unistd.h>
 # define MIN(n, m) ((n) < (m) ? (n) : (m))
-
-/*
-**	COLOR
-*/
-# define ANSI_COLOR_RED     "\x1b[31m"
-# define ANSI_COLOR_GREEN   "\x1b[32m"
-# define ANSI_COLOR_YELLOW  "\x1b[33m"
-# define ANSI_COLOR_BLUE    "\x1b[34m"
-# define ANSI_COLOR_MAGENTA "\x1b[35m"
-# define ANSI_COLOR_CYAN    "\x1b[36m"
-# define ANSI_COLOR_RESET   "\x1b[0m"
-
-/*
-**	BASE
-*/
-# define BINARY 2
-# define TRINARY 3
-# define OCTAL 8
-# define NONAIRE 9
-# define DECIMAL 10
-# define HEXADECIMAL 16
-# define SEXIGESIMAL 60
 
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
@@ -122,11 +98,5 @@ int					get_next_line(int fd, char **line);
 size_t				ft_tablen(char **tab);
 void				ft_free_tab(char ***tab);
 char				**ft_cpytab(char **tab, int lenth);
-
-void				ft_putnbr_base(int n, size_t base);
-void				ft_putnbr_base_fd(int n, size_t base, int fd);
-
-void				ft_putmem(void *adr);
-int					ft_printf(const char *msg, ...);
 
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
+#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2013/11/20 09:49:07 by dsousa            #+#    #+#              #
-#    Updated: 2013/11/20 11:31:21 by dsousa           ###   ########.fr        #
+#    Created: 2013/11/20 09:49:07 by rbenjami          #+#    #+#              #
+#    Updated: 2013/11/20 11:31:21 by rbenjami         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -14,7 +14,7 @@ include		Makefile.sources
 
 NAME		=	../libft.a
 
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -g3 -pedantic
 
 OBJ_LIB		=	$(SRC_LIB:.c=.o)
 

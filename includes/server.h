@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   server.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,26 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#ifndef SERVER_H
+# define SERVER_H
 
-# include <dirent.h>
+# include "struct.h"
+# include <stdlib.h>
+# include <sys/socket.h>
+# include <netdb.h>
+# include <unistd.h>
+# include <netinet/in.h>
+# include <arpa/inet.h>
+# include <libft.h>
 
-typedef struct		s_info
-{
-	int				sock;
-	char *			pwd;
-	DIR *			folder;
-	char			buff[1024];
-	char			*cmd;
-	char			**argv;
-	int				end;
-}					t_info;
-
-typedef struct		s_cmd
-{
-	char *			cmd;
-	void			(*f)(t_info *);
-}					t_cmd;
+void		control_cmd(t_info *i);
+void		new_client(int sock, char *pwd);
+void		ft_error(char *str);
+char		*ch_pwd(char *old, char *new);
 
 #endif

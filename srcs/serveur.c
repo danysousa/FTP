@@ -10,19 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <unistd.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <libft.h>
-
-void		usage(char *str)
-{
-	ft_printf("Usage: %s <port>\n", str);
-	exit(-1);
-}
+#include <server.h>
 
 int			create_server(int port)
 {
@@ -37,32 +25,41 @@ int			create_server(int port)
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(port);
 	sin.sin_addr.s_addr = htonl(INADDR_ANY);
-	bind(sock, (const struct sockaddr *)&sin, sizeof(sin));
-	listen(sock, 42);
+	if (bind(sock, (const struct sockaddr *)&sin, sizeof(sin)) < 0)
+		ft_error("error with bind()");
+	if (listen(sock, 42))
+		ft_error("error with listen()");
 	return (sock);
+}
+
+char		*get_pwd(char **env)
+{
+	int		i;
+
+	i = 0;
+	while ( env[i] )
+	{
+		if ( ft_strncmp("PWD=", env[i], 4) == 0 )
+			return( ft_strsub(env[i], 4, ft_strlen(env[i]) - 4) );
+		i++;
+	}
+	ft_error("Error, no pwd set in env variable");
+	return (NULL);
 }
 
 int			main(int argc, char *argv[])
 {
 	int						port;
 	int						sock;
-	int						cs;
-	unsigned int			cslen;
-	struct sockaddr_in		csin;
-	int						r;
-	char					buff[1024];
+	extern char				**environ;
+	char					*pwd;
 
 	if (argc != 2)
-		usage(argv[0]);
+		ft_error("Usage: ./serveur <port>");
 	port = ft_atoi(argv[1]);
 	sock = create_server(port);
-	cs = accept(sock, (struct sockaddr *)&csin, &cslen);
-	while ((r = read(cs, buff, 1023)) > 0)
-	{
-		buff[r] = '\0';
-		ft_printf("received %d bytes: [%s]\n", r, buff);
-	}
-	close(cs);
+	pwd = get_pwd(environ);
+	new_client(sock, pwd);
 	close(sock);
 	return (0);
 }

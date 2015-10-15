@@ -33,7 +33,10 @@ INC_SRC			=	$(addprefix $(INC_DIR), $(INC_FILES))
 
 SRC_DIR			=	srcs/
 
-FILES_SERV		=	serveur.c
+FILES_SERV		=	serveur.c\
+					server_cmd.c\
+					server_user.c\
+					server_utils.c
 
 FILES_CLIENT	=	client.c
 
