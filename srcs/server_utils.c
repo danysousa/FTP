@@ -6,7 +6,7 @@
 /*   By: danysousa <danysousa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:44:03 by dsousa            #+#    #+#             */
-/*   Updated: 2015/10/17 15:34:23 by danysousa        ###   ########.fr       */
+/*   Updated: 2015/10/17 16:54:02 by danysousa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@ void		ft_error(char *str)
 {
 	ft_putendl(str);
 	exit(-1);
+}
+
+int			ft_is_dir(char *path)
+{
+	DIR		*fd;
+
+	if ((fd = opendir(path)) == NULL)
+		return (0);
+	closedir(fd);
+	return (1);
 }
 
 t_list		*path_to_list(char *path)
