@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putmem.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danysousa <danysousa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/12/03 10:40:17 by dsousa            #+#    #+#             */
-/*   Updated: 2015/10/17 13:58:07 by danysousa        ###   ########.fr       */
+/*   Created: 2014/05/01 12:48:53 by dsousa            #+#    #+#             */
+/*   Updated: 2015/10/17 13:57:57 by danysousa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
-# define BUFF_SIZE 4096
+#include "libft.h"
 
-int					get_next_line(int const fd, char **line);
-
-typedef struct		s_read
+void	ft_putmem(void *adr)
 {
-	int				size;
-	int				index;
-	int				fd;
-	char			*read;
-	struct s_read	*next;
-}					t_read;
+	write(1, "0x", 2);
+	ft_putnbr_base((size_t)adr, 16);
+}
 
-#endif
+void	ft_putmem_fd(void *adr, size_t fd)
+{
+	write(fd, "0x", 2);
+	ft_putnbr_base_fd((size_t)adr, 16, fd);
+}

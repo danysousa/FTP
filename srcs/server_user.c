@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_user.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: danysousa <danysousa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:44:03 by dsousa            #+#    #+#             */
-/*   Updated: 2014/05/12 19:16:25 by dsousa           ###   ########.fr       */
+/*   Updated: 2015/10/17 15:43:10 by danysousa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,24 @@ void		parse_cmd(t_info *i)
 		i->argv[j - 1][ft_strlen(i->argv[j - 1]) - 1] = '\0';
 }
 
+void		print_prompt(t_info *i)
+{
+	ft_putstr_fd("\033[32m", i->sock);
+	ft_putstr_fd(i->pwd, i->sock);
+	ft_putstr_fd("\033[33m", i->sock);
+	ft_putstr_fd(" $ ", i->sock);
+	ft_putstr_fd("\033[0m", i->sock);
+}
+
 void		user_fork(int sock, char *pwd)
 {
 	t_info		*i;
 	int			count;
 
 	i = init_user_info(sock, pwd);
+	print_prompt(i);
 	while (i->end == 0 && (count = read(sock, i->buff, 1023)) > 0)
 	{
-		ft_putstr(i->buff);
-		ft_putendl(ft_itoa(count));
 		if ( count == 1023 )
 		{
 			ft_putendl_fd("Command not allowed", i->sock);
@@ -68,6 +76,8 @@ void		user_fork(int sock, char *pwd)
 		parse_cmd(i);
 		control_cmd(i);
 		ft_bzero(i->buff, 1024);
+		if (i->end == 0)
+			print_prompt(i);
 	}
 }
 
@@ -77,7 +87,7 @@ void		new_client(int sock, char *pwd)
 	unsigned int			cslen;
 	int						cs;
 
-	while ( 1 )
+	while (1)
 	{
 		cs = accept(sock, (struct sockaddr *)&csin, &cslen);
 		if (fork() == 0)

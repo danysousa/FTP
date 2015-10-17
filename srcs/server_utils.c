@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: danysousa <danysousa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:44:03 by dsousa            #+#    #+#             */
-/*   Updated: 2014/05/12 19:16:25 by dsousa           ###   ########.fr       */
+/*   Updated: 2015/10/17 15:34:23 by danysousa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,85 +18,73 @@ void		ft_error(char *str)
 	exit(-1);
 }
 
-void		del_last(char **array)
+t_list		*path_to_list(char *path)
 {
-	int		i;
+	char	**array;
+	t_list	*result;
+	size_t	i;
 
+	array = ft_strsplit(path, '/');
+	result = new_list();
 	i = 0;
-	while (array[i] && array[i + 1])
-		i++;
-
-	if (array[i])
+	while (array[i])
 	{
-		free(array[i]);
-		array[i] = NULL;
+		add_elem(result, array[i]);
+		i++;
 	}
+
+	return (result);
 }
 
-char		**add_last(char **array, char *elem)
+char		*list_to_path(t_list *list)
 {
-	char	**result;
-	int		i;
+	char	*result;
 
-	i = 0;
-	while (array[i])
-		i++;
-
-	result = malloc(sizeof(char *) * i + 2);
-	i = 0;
-	while (array[i])
+	result = ft_strdup("");
+	t_elem	*elem;
+	elem = list->first;
+	while (elem)
 	{
-		result[i] = ft_strdup(array[i]);
-		free(array[i]);
-		array[i] = NULL;
-		i++;
+		result = ft_strjoin(result, "/");
+		result = ft_strjoin(result, elem->data);
+		elem = elem->next;
 	}
-	result[i] = ft_strdup(elem);
-	result[i + 1] = NULL;
-	free(array);
 	return (result);
 }
 
 char		*ch_pwd(char *old, char *new)
 {
+	t_list	*l_old;
+	t_list	*l_new;
+	t_elem	*e;
 	char	*result;
-	char	**a_old;
-	char	**a_new;
-	int		i;
 
-	i = 0;
-	if (new == NULL || old == NULL)
+	if (!new || !old)
 	{
-		result = new == NULL ? old : new;
+		result = old ? new : old;
 		return (result);
 	}
 	if (new[0] == '/')
-		return (new);
-
-	a_old = ft_strsplit(old, '/');
-	a_new = ft_strsplit(new, '/');
-	while (a_new[i])
+		return (ft_strdup(new));
+	l_old = path_to_list(old);
+	l_new = path_to_list(new);
+	e = l_new->first;
+	while (e)
 	{
-		if (ft_strlen(a_new[i]) == 2 && ft_strcmp(a_new[i], "..") == 0)
-			del_last(a_old);
-		else if (ft_strlen(a_new[i]) == 1 && ft_strcmp(a_new[i], ".") == 0)
+		if (ft_strlen(e->data) == 1 && ((char *)e->data)[0] == '.')
 		{
-			i++;
+			e = e->next;
 			continue;
 		}
+		else if (ft_strlen(e->data) == 2 && ft_strcmp(e->data, "..") == 0)
+		{
+			if (l_old->size != 0)
+				l_old->first = del_elem(l_old, l_old->size - 1);
+		}
 		else
-			a_old = add_last(a_old, a_new[i]);
-		i++;
+			add_elem(l_old, e->data);
+		e = e->next;
 	}
 
-	i = 1;
-	result = ft_strjoin(a_old[0], "/");
-	while (a_old[i])
-	{
-		result = ft_strjoin(result, a_old[i]);
-		result = ft_strjoin(result, "/");
-		i++;
-	}
-
-	return (result);
+	return (list_to_path(l_old));
 }

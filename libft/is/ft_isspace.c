@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danysousa <danysousa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/12/03 10:40:17 by dsousa            #+#    #+#             */
-/*   Updated: 2015/10/17 13:58:07 by danysousa        ###   ########.fr       */
+/*   Created: 2014/03/11 12:32:07 by dsousa            #+#    #+#             */
+/*   Updated: 2015/10/17 13:58:04 by danysousa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
-# define BUFF_SIZE 4096
+#include "libft.h"
 
-int					get_next_line(int const fd, char **line);
-
-typedef struct		s_read
+BOOL	ft_isspace(char c)
 {
-	int				size;
-	int				index;
-	int				fd;
-	char			*read;
-	struct s_read	*next;
-}					t_read;
-
-#endif
+	if (c == ' ' || c == '\n' || c == '\t')
+		return (1);
+	return (0);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: danysousa <danysousa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:44:03 by dsousa            #+#    #+#             */
-/*   Updated: 2014/05/12 19:16:25 by dsousa           ###   ########.fr       */
+/*   Updated: 2015/10/17 15:35:32 by danysousa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		ft_ls(t_info *i)
 void		ft_help(t_info *i)
 {
 	ft_putendl_fd("Allowed command :", i->sock);
-	ft_putendl_fd("[ls, pwd]", i->sock);
+	ft_putendl_fd("[ls, pwd, cd, quit]", i->sock);
 }
 
 void		ft_pwd(t_info *i)
@@ -47,8 +47,14 @@ void		ft_exit(t_info *i)
 
 void		ft_cd(t_info *i)
 {
+	char	*tmp;
+
 	if (i->argv[1])
-		i->pwd = ch_pwd(i->pwd, i->argv[1]);
+	{
+		tmp = ch_pwd(i->pwd, i->argv[1]);
+		free(i->pwd);
+		i->pwd = tmp;
+	}
 	ft_putendl_fd(i->pwd, i->sock);
 }
 

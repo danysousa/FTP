@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   vector2f_pow.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danysousa <danysousa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/12/03 10:40:17 by dsousa            #+#    #+#             */
-/*   Updated: 2015/10/17 13:58:07 by danysousa        ###   ########.fr       */
+/*   Created: 2014/02/25 14:55:57 by dsousa            #+#    #+#             */
+/*   Updated: 2015/10/17 13:58:18 by danysousa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
-# define BUFF_SIZE 4096
+#include "libft.h"
 
-int					get_next_line(int const fd, char **line);
-
-typedef struct		s_read
+VEC2	*pow2f(VEC2 *vec1, float value)
 {
-	int				size;
-	int				index;
-	int				fd;
-	char			*read;
-	struct s_read	*next;
-}					t_read;
+	vec1->x = pow(vec1->x, value);
+	vec1->y = pow(vec1->y, value);
+	return (vec1);
+}
 
-#endif
+VEC2	*rt2(VEC2 *vec1)
+{
+	return (mul2v(vec1, vec1));
+}

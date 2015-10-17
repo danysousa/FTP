@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danysousa <danysousa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/12/03 10:40:17 by dsousa            #+#    #+#             */
-/*   Updated: 2015/10/17 13:58:07 by danysousa        ###   ########.fr       */
+/*   Created: 2015/02/18 11:20:39 by dsousa            #+#    #+#             */
+/*   Updated: 2015/10/17 13:57:50 by danysousa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
-# define BUFF_SIZE 4096
+#include "libft.h"
 
-int					get_next_line(int const fd, char **line);
-
-typedef struct		s_read
+char	*ft_strrchr(const char *s, int c)
 {
-	int				size;
-	int				index;
-	int				fd;
-	char			*read;
-	struct s_read	*next;
-}					t_read;
+	int				i;
+	char			search;
 
-#endif
+	search = (char)c;
+	i = ft_strlen(s) - 1;
+	if (search == '\0')
+		return (i + 1 + (char*)s);
+	while (i >= 0)
+	{
+		if (s[i] == search)
+			return (i + (char*)s);
+		i--;
+	}
+	return (NULL);
+}

@@ -1,84 +1,87 @@
 #******************************************************************************#
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile.sources                                   :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
+#    By: dsousa   <dsousa  @student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2013/11/20 09:49:07 by rbenjami          #+#    #+#              #
-#    Updated: 2013/11/20 11:31:21 by rbenjami         ###   ########.fr        #
+#    Created: 2013/11/20 09:49:07 by dsousa            #+#    #+#              #
+#    Updated: 2013/11/20 11:31:21 by dsousa           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
-
-SRC_LIB		=	ft_isascii.c		\
-				ft_memchr.c			\
-				ft_putstr.c			\
-				ft_strdup.c			\
-				ft_strncpy.c		\
-				ft_memcmp.c			\
-				ft_strcat.c			\
-				ft_strlcat.c		\
-				ft_strnstr.c		\
-				ft_atoi.c			\
-				ft_lstadd.c			\
-				ft_memcpy.c			\
-				ft_strchr.c			\
-				ft_strlcpy.c		\
-				ft_strrchr.c		\
-				ft_bzero.c			\
-				ft_isprint.c		\
-				ft_memmove.c		\
-				ft_strcmp.c			\
-				ft_strlen.c			\
-				ft_strstr.c			\
-				ft_isalnum.c		\
-				ft_lstiter.c		\
-				ft_memset.c			\
-				ft_strncat.c		\
-				ft_tolower.c		\
-				ft_isalpha.c		\
-				ft_memccpy.c		\
-				ft_strcpy.c			\
-				ft_strncmp.c		\
-				ft_toupper.c		\
-				ft_memalloc.c		\
-				ft_putnbr.c			\
-				ft_memdel.c			\
-				ft_strnew.c			\
-				ft_strdel.c			\
-				ft_strclr.c			\
-				ft_striter.c		\
-				ft_striteri.c		\
-				ft_strmap.c			\
-				ft_strmapi.c		\
-				ft_strequ.c			\
-				ft_strnequ.c		\
-				ft_strsub.c			\
-				ft_strjoin.c		\
-				ft_strjoin2.c		\
-				ft_strnjoin.c		\
-				ft_strtrim.c		\
-				ft_strsplit.c		\
-				ft_itoa.c			\
-				ft_putchar_fd.c		\
-				ft_putstr_fd.c		\
-				ft_putendl_fd.c		\
-				ft_putnbr_fd.c		\
-				ft_putendl.c		\
-				ft_lstdel.c			\
-				ft_lstdelone.c		\
-				ft_lstnew.c			\
-				ft_realloc.c		\
-				ft_isdigit.c		\
-				ft_putchar.c		\
-				ft_lstmap.c			\
-				ft_strtolower.c		\
-				ft_strtoupper.c		\
-				ft_strsplit_space.c	\
-				ft_tablen.c			\
-				ft_free_tab.c		\
-				ft_memrealloc.c		\
-				ft_isspace.c		\
-				ft_cpytab.c			\
-				get_next_line.c
+SRC_LIB		=	put/ft_putstr.c			\
+				put/ft_putchar.c		\
+				put/ft_putmem.c			\
+				put/ft_putnbr_base.c	\
+				put/ft_putendl.c		\
+				\
+				str/ft_strlen.c			\
+				str/ft_strchr.c			\
+				str/ft_strrchr.c		\
+				str/ft_strstr.c			\
+				str/ft_strncpy.c		\
+				str/ft_strcmp.c			\
+				str/ft_strnew.c			\
+				str/ft_strjoin.c		\
+				str/ft_colorize.c		\
+				str/ft_strdup.c			\
+				str/ft_strsplit.c		\
+				str/ft_strsub.c			\
+				str/ft_trunc.c			\
+				\
+				tab/ft_tabsize.c		\
+				tab/ft_freetab.c		\
+				tab/ft_cpytab.c			\
+				\
+				error/exit_error.c		\
+				error/error.c			\
+				\
+				convert/ft_itoa.c		\
+				convert/ft_atoi.c		\
+				convert/ft_atof.c		\
+				\
+				mem/ft_memalloc.c		\
+				mem/ft_bzero.c			\
+				mem/ft_memrealloc.c		\
+				mem/ft_memdel.c			\
+				mem/ft_memcpy.c			\
+				\
+				is/ft_isalpha.c			\
+				is/ft_isascii.c			\
+				is/ft_isdigit.c			\
+				is/ft_isprint.c			\
+				is/ft_isspace.c			\
+				\
+				utils/get_next_line.c	\
+				utils/pattern.c			\
+				utils/add_trunc.c		\
+				\
+				list/list.c				\
+				\
+				3d/utils.c				\
+				3d/vector2f.c			\
+				3d/vector2f_add.c		\
+				3d/vector2f_sub.c		\
+				3d/vector2f_mul.c		\
+				3d/vector2f_div.c		\
+				3d/vector2f_pow.c		\
+				3d/vector2f_get.c		\
+				3d/vector2f_rotate.c	\
+				3d/vector3f.c			\
+				3d/vector3f_2.c			\
+				3d/vector3f_add.c		\
+				3d/vector3f_sub.c		\
+				3d/vector3f_mul.c		\
+				3d/vector3f_div.c		\
+				3d/vector3f_pow.c		\
+				3d/vector3f_get.c		\
+				3d/vector3f_rotate.c	\
+				3d/quaternion.c			\
+				3d/quaternion_mul.c		\
+				3d/quaternion_rot.c		\
+				3d/matrix4f.c			\
+				3d/matrix4f_rot.c		\
+				3d/matrix4f_init.c		\
+				3d/vertex.c				\
+				3d/transforms.c
