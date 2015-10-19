@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.h                                           :+:      :+:    :+:   */
+/*   client.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danysousa <danysousa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,24 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERVER_H
-# define SERVER_H
+#ifndef CLIENT_H
+# define CLIENT_H
 
-# include "struct.h"
 # include <stdlib.h>
 # include <sys/socket.h>
 # include <netdb.h>
 # include <unistd.h>
-# include <fcntl.h>
 # include <netinet/in.h>
 # include <arpa/inet.h>
+# include <fcntl.h>
 # include <libft.h>
-# include <stdio.h>
 
-void		control_cmd(t_info *i);
-void		new_client(int sock, char *pwd);
-void		ft_error(char *str);
-char		*ch_pwd(char *old, char *new);
-int			ft_is_dir(char *path);
+void		send_cmd(int sock);
+void		client_get_file(char *filename, int sock);
+void		client_put_file(char *filename, int sock);
 
 #endif

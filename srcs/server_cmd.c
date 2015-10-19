@@ -19,7 +19,7 @@ void		ft_ls(t_info *i)
 	i->folder = opendir(i->pwd);
 	if (i->folder == NULL)
 	{
-		ft_putendl_fd("Permission denied", i->sock);
+		ft_putendl_fd("Permission denied\4", i->sock);
 		return ;
 	}
 
@@ -41,7 +41,7 @@ void		ft_pwd(t_info *i)
 
 void		ft_exit(t_info *i)
 {
-	ft_putendl_fd("Goodbye !", i->sock);
+	ft_putendl_fd("Goodbye !\4", i->sock);
 	i->end = 1;
 }
 
@@ -54,7 +54,7 @@ void		ft_cd(t_info *i)
 		tmp = ch_pwd(i->pwd, i->argv[1]);
 		if ( chdir(tmp) == -1 )
 		{
-			ft_putendl_fd("cd: no such file or directory", i->sock);
+			ft_putendl_fd("cd: no such file or directory\4", i->sock);
 			chdir(i->pwd);
 			free(tmp);
 			return ;
@@ -69,7 +69,7 @@ void		ft_get(t_info *i)
 {
 	char	*path;
 	char	buff[1024];
-	int		fd;
+	FILE	*fd;
 	int		count;
 
 	if (!i->argv[1])
@@ -80,22 +80,23 @@ void		ft_get(t_info *i)
 		path = ft_strdup(i->argv[1]);
 	if (ft_is_dir(path))
 	{
-		ft_putendl_fd("ERROR: can't get directory", i->sock);
+		ft_putendl_fd("ERROR: can't get directory\4", i->sock);
 		return ;
 	}
-	if ((fd = open(path, O_RDONLY)) == -1)
+	if ((fd = fopen(path, "rb")) == NULL)
 	{
-		ft_putendl_fd("ERROR: no such file or permission denied", i->sock);
+		ft_putendl_fd("ERROR: no such file or permission denied\4", i->sock);
 		return ;
 	}
 	ft_bzero(buff, 1024);
-	ft_putendl_fd("ERROR: NULL", i->sock);
-	while ((count = read(fd, buff, 1023)) > 0)
+	send(i->sock, "ERROR: NULL\n", 12, 0);
+	while (!feof(fd))
 	{
-		ft_putstr_fd(buff, i->sock);
+		count = fread(buff, 1, 1023, fd);
+		send(i->sock, buff, count, 0);
 		ft_bzero(buff, 1024);
 	}
-	close(fd);
+	fclose(fd);
 }
 
 void		control_cmd(t_info *i)
@@ -118,10 +119,13 @@ void		control_cmd(t_info *i)
 		if (ft_strncmp(i->cmd, pt[j].cmd, ft_strlen(pt[j].cmd)) == 0)
 		{
 			pt[j].f(i);
+			ft_putstr_fd("\4", i->sock);
 			return ;
 		}
 		j++;
 	}
+	ft_putendl_fd("Command not found : use help\n\4", i->sock);
+
 }
 
 

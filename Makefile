@@ -38,7 +38,9 @@ FILES_SERV		=	serveur.c\
 					server_user.c\
 					server_utils.c
 
-FILES_CLIENT	=	client.c
+FILES_CLIENT	=	client.c\
+					client_cmd.c\
+					client_file_transfert.c
 
 SRC_SERV		=	$(addprefix $(SRC_DIR), $(FILES_SERV))
 

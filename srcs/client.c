@@ -10,13 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <unistd.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <libft.h>
+#include <client.h>
 
 void		usage(void)
 {
@@ -26,9 +20,9 @@ void		usage(void)
 
 int			create_client(char *addr, int port)
 {
-	int						sock;
-	struct protoent			*proto;
-	struct sockaddr_in		sin;
+	int					sock;
+	struct protoent		*proto;
+	struct sockaddr_in	sin;
 
 	proto = getprotobyname("tcp");
 	if (proto == 0)
@@ -37,7 +31,11 @@ int			create_client(char *addr, int port)
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(port);
 	sin.sin_addr.s_addr = inet_addr(addr);
-	connect(sock, (const struct sockaddr *)&sin, sizeof(sin));
+	if (connect(sock, (const struct sockaddr *)&sin, sizeof(sin)) == -1)
+	{
+		ft_putendl("Connect error");
+		exit(-42);
+	}
 	return (sock);
 }
 
@@ -45,18 +43,12 @@ int			main(int argc, char *argv[])
 {
 	int						port;
 	int						sock;
-	int						r;
-	char					buff[1024];
 
 	if (argc != 3)
 		usage();
 	port = ft_atoi(argv[2]);
 	sock = create_client(argv[1], port);
-	while ((r = read(0, buff, 1023)) > 0)
-	{
-		buff[r - 1] = '\0';
-		write(sock, buff, r);
-	}
+	send_cmd(sock);
 	close(sock);
 	return (0);
 }
