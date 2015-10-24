@@ -6,7 +6,7 @@
 /*   By: danysousa <danysousa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:53:22 by dsousa            #+#    #+#             */
-/*   Updated: 2015/10/17 16:54:09 by danysousa        ###   ########.fr       */
+/*   Updated: 2015/10/24 10:17:54 by danysousa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <arpa/inet.h>
 # include <libft.h>
 # include <stdio.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
 
 void		control_cmd(t_info *i);
 void		new_client(int sock, char *pwd);

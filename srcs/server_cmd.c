@@ -6,7 +6,7 @@
 /*   By: danysousa <danysousa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:44:03 by dsousa            #+#    #+#             */
-/*   Updated: 2015/10/17 16:54:20 by danysousa        ###   ########.fr       */
+/*   Updated: 2015/10/24 11:13:44 by danysousa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ void		ft_cd(t_info *i)
 
 void		ft_get(t_info *i)
 {
-	char	*path;
-	char	buff[1024];
-	FILE	*fd;
-	int		count;
+	char			*path;
+	struct stat		s;
+	char			buff[513];
+	int				fd;
+	int				count;
 
 	if (!i->argv[1])
 		return ;
@@ -80,23 +81,38 @@ void		ft_get(t_info *i)
 		path = ft_strdup(i->argv[1]);
 	if (ft_is_dir(path))
 	{
+		free(path);
 		ft_putendl_fd("ERROR: can't get directory\4", i->sock);
 		return ;
 	}
-	if ((fd = fopen(path, "rb")) == NULL)
+	if ((fd = open(path, O_RDONLY)) == -1)
 	{
+		free(path);
 		ft_putendl_fd("ERROR: no such file or permission denied\4", i->sock);
 		return ;
 	}
-	ft_bzero(buff, 1024);
+	free(path);
+	ft_bzero(buff, 512);
 	send(i->sock, "ERROR: NULL\n", 12, 0);
-	while (!feof(fd))
+	fstat(fd, &s);
+	count = 0;
+	if (s.st_blocks <= 0)
 	{
-		count = fread(buff, 1, 1023, fd);
-		send(i->sock, buff, count, 0);
-		ft_bzero(buff, 1024);
+		close(fd);
+		return ;
 	}
-	fclose(fd);
+	path = ft_trunc("SIZE: %d", s.st_blocks * 512);
+	ft_putendl_fd(path, i->sock);
+	ft_putendl_fd(path, 1);
+	free(path);
+	while (count < s.st_blocks)
+	{
+		read(fd, buff, 512);
+		send(i->sock, buff, 512, 0);
+		ft_bzero(buff, 512);
+		count++;
+	}
+	close(fd);
 }
 
 void		control_cmd(t_info *i)
